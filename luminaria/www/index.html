@@ -14,25 +14,47 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="cordova.js"></script>
     <script src="js/app.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   </head>
   <body ng-app="starter">
     <ion-pane ng-controller="luminariaCtrl">
       <ion-header-bar class="bar-stable">
         <h1 class="title">Lumin&#xE1;ria</h1>
       </ion-header-bar>
-      <ion-content>
-        <ul class="list">
-          <li class="item">
-            <button ng-click="blueLight()" class="button button-full button-positive ion-flash">
-          </button></li>
-          <li class="item">
-            <button ng-click="greenLight()" class="button button-full button-balanced ion-flash">
-          </button></li>
-          <li class="item">
-            <button ng-click="redLight()" class="button button-full button-assertive ion-flash">
-          </button></li>
-        </ul>
-      </ion-content>
+      <center>    
+        <canvas width="350" height="450" id="canvas_picker"></canvas>
+        <div id="hex">Color: <input disabled="disabled" style="text-align:center; color:white" id="selectedColor" ng-change="turnLight()" ng-model="color" type="text"></div>
+        <script type="text/javascript">
+
+          var canvas = document.getElementById('canvas_picker').getContext('2d');
+          var img = new Image();
+          img.src = 'img/colormap.gif';
+          $(img).load(function(){
+            canvas.drawImage(img,0,100,350,350);
+          });
+
+          function rgbToHex(R,G,B) {return toHex(R)+toHex(G)+toHex(B)}
+          function toHex(n) {
+            n = parseInt(n,10);
+            if (isNaN(n)) return "00";
+            n = Math.max(0,Math.min(n,255));
+            return "0123456789ABCDEF".charAt((n-n%16)/16)  + "0123456789ABCDEF".charAt(n%16);
+          }
+
+          $('#canvas_picker').click(function(event){
+            var x = event.pageX - this.offsetLeft;
+            var y = event.pageY - this.offsetTop;
+            var img_data = canvas.getImageData(x, y, 1, 1).data;
+            var R = img_data[0];
+            var G = img_data[1];
+            var B = img_data[2];  var rgb = R + ',' + G + ',' + B;
+            var hex = rgbToHex(R,G,B);
+            $('#rgb input').val(rgb);
+            $('#hex input').val('#' + hex);
+            $('#selectedColor').css('background-color',"#"+hex+"");
+          });
+        </script>
+      </center>  
     </ion-pane>
   </body>
 </html>
