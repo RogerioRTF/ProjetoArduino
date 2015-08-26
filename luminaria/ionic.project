@@ -1,0 +1,10 @@
+{
+  "name": "luminaria",
+  "app_id": "e699ad5c",
+  "proxies": [
+    {
+      "path": "/luminaria/",
+      "proxyUrl": "http://192.168.25.51:8080/teste/rest/luminaria/red"
+    }
+  ]
+}
