@@ -34,6 +34,9 @@ void setup(){
   server.begin();
   Serial.begin(9600);
   Serial.println(Ethernet.localIP());
+  analogWrite(redPin, 255);
+  analogWrite(greenPin, 255);
+  analogWrite(bluePin,255);
 }
 
 void changeColor(char request[]) {

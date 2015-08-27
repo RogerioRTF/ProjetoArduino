@@ -12,12 +12,16 @@ angular.module('starter', ['ionic'])
   });
 }).controller('luminariaCtrl', function($scope,$http) {
     $scope.color = "FF0000";
-    var turnLight = function(){
+    $scope.endpoint = "192.168.25.68";
+    $scope.turnLight = function(){
+      $scope.color = $('#selectedColor').val();
       console.log($scope.color);
-      $http.get("http://192.168.25.68/LED-"+$scope.color).success(function(response){
-        $scope.color = response;
+      var request = "http://"+$scope.endpoint+"/LED-"+$scope.color.substr(1);
+      
+      $http.get(request).success(function(response){
+        
       }).error(function(){
-        $scope.color = "DEU RUIM";
+        console.log("Erro na requisição.");
       })
     };
   });

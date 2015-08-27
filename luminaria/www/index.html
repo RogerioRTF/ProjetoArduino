@@ -22,8 +22,10 @@
         <h1 class="title">Lumin&#xE1;ria</h1>
       </ion-header-bar>
       <center>    
-        <canvas width="350" height="450" id="canvas_picker"></canvas>
-        <div id="hex">Color: <input disabled="disabled" style="text-align:center; color:white" id="selectedColor" ng-change="turnLight()" ng-model="color" type="text"></div>
+        <canvas width="350" height="450" id="canvas_picker" ng-click="turnLight()"></canvas>
+        <div id="hex">Color: <input style="text-align:center; color:white" id="selectedColor"  
+          type="text"></div>{{color}}
+        <input style="text-align:center;" ng-model="endpoint" ></input>
         <script type="text/javascript">
 
           var canvas = document.getElementById('canvas_picker').getContext('2d');
